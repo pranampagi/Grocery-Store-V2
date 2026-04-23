@@ -1,6 +1,7 @@
 from flask_restful import Resource, Api, reqparse, fields, marshal, marshal_with
 from flask_security import auth_required, roles_required, current_user, roles_accepted
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 from flask import request
 from .models import db, User, Product, Category, Cart, CartItem, Order, OrderItem
 from datetime import datetime
@@ -135,11 +136,9 @@ class CategoryApi(Resource):
 
 class CategoryListApi(Resource):
     @marshal_with(category_fields)
-    @auth_required("token")
-    @roles_accepted('Admin', 'Storemanager', 'Customer')
     @cache.memoize(timeout=30)
     def get(self):
-        categories = Category.query.all()
+        categories = Category.query.options(joinedload(Category.products)).all()
         return categories, 200
     
     @marshal_with(category_fields)
@@ -253,7 +252,7 @@ class ProductListApi(Resource):
     @roles_accepted('Admin', 'Storemanager')
     @cache.memoize(timeout=30)
     def get(self):
-        products = Product.query.all()
+        products = Product.query.options(joinedload(Product.category)).all()
         return products, 200
     
     @marshal_with(product_fields)
@@ -462,7 +461,8 @@ class OrderApi(Resource):
             order_item = OrderItem(order_id=order.id, product_id=cart_item.product_id, name=cart_item.name, quantity=cart_item.quantity, price=cart_item.price)
             db.session.add(order_item)
             db.session.delete(cart_item)
-            db.session.commit()
+        
+        db.session.commit()
         db.session.add(order)
         db.session.commit()
 
@@ -474,8 +474,6 @@ class OrderApi(Resource):
     
 
 class SearchApi(Resource):
-    @auth_required("token")
-    @roles_required('Customer')
     @cache.memoize(timeout=30)
     def get(self, query):
         if not query:
@@ -488,7 +486,7 @@ class SearchApi(Resource):
             products = Product.query.filter(Product.manufacture_date >= query).all()
         # Otherwise, search for product name or category name containing query all in lowercase
         else:
-            products = Product.query.filter(or_(Product.name.like(f'%{query}%'), Product.category.has(name=query))).all()
+            products = Product.query.options(joinedload(Product.category)).filter(or_(Product.name.like(f'%{query}%'), Product.category.has(name=query))).all()
             
         # filter products with category as active
         products = [product for product in products if product.category.active]

@@ -22,7 +22,7 @@ Flask-RESTful==0.3.10
 Flask-Security-Too==5.3.2
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
-greenlet==3.0.2
+greenlet>=3.0.2
 idna==3.6
 importlib-resources==6.1.1
 itsdangerous==2.1.2

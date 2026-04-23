@@ -34,7 +34,7 @@ class Role(db.Model, RoleMixin):
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False, index=True)
     description = db.Column(db.Text)
     active = db.Column(db.Boolean)
     delete = db.Column(db.Boolean)
@@ -44,7 +44,7 @@ class Category(db.Model):
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False, index=True)
     price = db.Column(db.Float, nullable=False)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
