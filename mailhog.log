@@ -1,9 +1,29 @@
-2026/04/24 10:42:26 Using in-memory storage
-2026/04/24 10:42:26 [SMTP] Binding to address: 0.0.0.0:1025
+2026/04/24 10:53:03 Using in-memory storage
+2026/04/24 10:53:03 [SMTP] Binding to address: 0.0.0.0:1025
 [HTTP] Binding to address: 0.0.0.0:8025
-2026/04/24 10:42:26 Serving under http://0.0.0.0:8025/
+2026/04/24 10:53:03 Serving under http://0.0.0.0:8025/
 Creating API v1 with WebPath: 
 Creating API v2 with WebPath: 
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
 [APIv1] KEEPALIVE /api/v1/events
 [APIv1] KEEPALIVE /api/v1/events
 [APIv1] KEEPALIVE /api/v1/events

@@ -47,11 +47,26 @@
               </td>
               <td class="text-end pe-0">
                 <div class="d-flex justify-content-end gap-2">
-                  <router-link :to="{ name: 'editcategory', params: { id: category.id } }" class="btn btn-sm btn-outline-light border-secondary border-opacity-50">
-                    <i class="bi bi-pencil"></i>
+                  <router-link :to="{ name: 'editcategory', params: { id: category.id } }" class="btn btn-sm btn-outline-info border-info border-opacity-50 px-3">
+                    <i class="bi bi-pencil-square me-1"></i> Edit
                   </router-link>
-                  <button class="btn btn-sm btn-outline-danger border-secondary border-opacity-50" @click="deleteCategory(category.id)">
-                    <i class="bi bi-trash"></i>
+                  
+                  <!-- Storemanager delete request button -->
+                  <button v-if="role === 'Storemanager'" class="btn btn-sm btn-outline-danger border-danger border-opacity-50 px-3" @click="deleteCategory(category.id)">
+                    <i class="bi bi-trash-fill me-1"></i> Delete
+                  </button>
+
+                  <!-- Admin Accept/Reject buttons -->
+                  <div v-else-if="role === 'Admin' && category.delete" class="d-flex gap-2">
+                    <button class="btn btn-sm btn-success rounded-pill px-3 fw-bold" @click="deleteCategory(category.id)">
+                      <i class="bi bi-check-lg me-1"></i> Accept
+                    </button>
+                    <button class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" @click="rejectCategory(category.id)">
+                      <i class="bi bi-x-lg me-1"></i> Reject
+                    </button>
+                  </div>
+                  <button v-else-if="role === 'Admin'" class="btn btn-sm btn-outline-danger border-danger border-opacity-50 px-3" @click="deleteCategory(category.id)">
+                    <i class="bi bi-trash-fill me-1"></i> Delete
                   </button>
                 </div>
               </td>
@@ -129,6 +144,22 @@
           } else {
             alert('Category deleted successfully')
           }
+        } else {
+          this.error = data.message
+        }
+      },
+
+      async rejectCategory(id) {
+        const response = await fetch(`http://localhost:5000/reject/category/${id}`, {
+          method: "PUT",
+          headers: {
+            'Authentication-Token': this.token
+          }
+        }).catch(error => console.log(error))
+        const data = await response.json()
+        if (response.ok) {
+          alert('Deletion request rejected')
+          this.getCategories()
         } else {
           this.error = data.message
         }

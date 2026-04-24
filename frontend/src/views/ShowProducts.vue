@@ -56,15 +56,32 @@
               </td>
               <td class="text-end pe-0">
                 <div class="d-flex justify-content-end gap-2">
-                  <router-link v-if="role === 'Storemanager'" :to="{ name: 'editproduct', params: { id: product.id } }" class="btn btn-sm btn-outline-light border-secondary border-opacity-50">
-                    <i class="bi bi-pencil"></i>
-                  </router-link>
-                  <button v-if="role === 'Storemanager' || product.delete" 
-                          class="btn btn-sm btn-outline-danger border-secondary border-opacity-50" 
-                          @click="deleteProduct(product.id)"
-                          :title="product.delete ? 'Confirm Deletion' : 'Request Deletion'">
-                    <i class="bi bi-trash"></i>
-                  </button>
+                  <!-- Storemanager Actions -->
+                  <template v-if="role === 'Storemanager'">
+                    <router-link :to="{ name: 'editproduct', params: { id: product.id } }" class="btn btn-sm btn-outline-info border-info border-opacity-50 px-3">
+                      <i class="bi bi-pencil-square me-1"></i> Edit
+                    </router-link>
+                    <button class="btn btn-sm btn-outline-danger border-danger border-opacity-50 px-3" 
+                            @click="deleteProduct(product.id)"
+                            :title="product.delete ? 'Deletion Pending' : 'Request Deletion'">
+                      <i class="bi bi-trash-fill me-1"></i> Delete
+                    </button>
+                  </template>
+
+                  <!-- Admin Actions -->
+                  <template v-else-if="role === 'Admin'">
+                    <div v-if="product.delete" class="d-flex gap-2">
+                      <button class="btn btn-sm btn-success rounded-pill px-3 fw-bold" @click="deleteProduct(product.id)">
+                        <i class="bi bi-check-lg me-1"></i> Accept
+                      </button>
+                      <button class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" @click="rejectProduct(product.id)">
+                        <i class="bi bi-x-lg me-1"></i> Reject
+                      </button>
+                    </div>
+                    <button v-else class="btn btn-sm btn-outline-danger border-danger border-opacity-50 px-3" @click="deleteProduct(product.id)">
+                      <i class="bi bi-trash-fill me-1"></i> Delete
+                    </button>
+                  </template>
                 </div>
               </td>
             </tr>
@@ -137,6 +154,23 @@ import router from '@/router'
               else {
                 alert('Product deleted successfully');
               }
+            }
+            else {
+                this.error = data.message;
+            }
+        },
+        async rejectProduct(id) {
+            const response = await fetch(`http://localhost:5000/reject/product/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Authentication-Token': localStorage.getItem('token')
+                }
+            })
+                .catch(error => console.log(error));
+            const data = await response.json();
+            if (response.ok) {
+              alert('Deletion request rejected');
+              this.getProducts();
             }
             else {
                 this.error = data.message;

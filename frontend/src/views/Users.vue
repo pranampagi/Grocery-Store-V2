@@ -1,62 +1,77 @@
 <template>
-  <div class="container">
-    <h1 v-if="role === 'Admin'">Admin Dashboard</h1>
-    <h1 v-else>Manager Dashboard</h1>
-    <h4 class="lead" v-if="role ==='Admin'">Welcome to the admin dashboard, Admin!</h4>
-    <h4 class="lead" v-else>Welcome to the Store Manager dashboard, Manager!</h4>
-    <hr>
+  <div class="container py-5 animate-fade-in text-white">
+    <div class="mb-5">
+      <h1 class="display-5 fw-bold mb-0 text-white">{{ role === 'Admin' ? 'Admin Dashboard' : 'Manager Dashboard' }}</h1>
+      <p class="text-secondary lead">{{ role === 'Admin' ? 'Welcome to the admin dashboard, Admin!' : 'Welcome to the Store Manager dashboard, Manager!' }}</p>
+    </div>
 
-    <h2>Store Managers</h2>
-    <table class="table table-striped mb-4">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Activate</th>
-        </tr>
-      </thead>
-      <tbody v-for="user in users" :key="user.id">
-        <tr v-if="user.roles[0].name === 'Storemanager'">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.roles[0].name }}</td>
-          <td v-if="!user.active && user.roles[0].name === 'Storemanager'">
-            <button class="btn btn-success" @click="activateStoremanager(user.id)">Activate</button>
-          </td>
-          <td v-else>
-            <button class="btn btn-outline-success" disabled>Activated</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="glass-card p-4 mb-5">
+      <div class="mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+        <h2 class="h4 fw-bold mb-0 text-uppercase tracking-wider text-white">Store Managers</h2>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="table table-borderless align-middle text-white bg-transparent">
+          <thead class="text-secondary small text-uppercase tracking-wider border-bottom border-secondary border-opacity-10">
+            <tr>
+              <th class="ps-0">ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in storeManagers" :key="user.id" class="border-bottom border-secondary border-opacity-10">
+              <td class="ps-0 py-3 text-secondary">#{{ user.id }}</td>
+              <td><span class="fw-bold">{{ user.name }}</span></td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td class="text-center">
+                <button v-if="!user.active" class="btn btn-sm btn-success rounded-pill px-4" @click="activateStoremanager(user.id)">
+                  Activate
+                </button>
+                <span v-else class="badge rounded-pill bg-success bg-opacity-25 text-success px-4">Active</span>
+              </td>
+            </tr>
+            <tr v-if="storeManagers.length === 0">
+              <td colspan="5" class="text-center py-4 text-secondary">No store managers found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
 
-    <h2>Customers</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody v-for="user in users" :key="user.id">
-        <tr v-if="user.roles[0].name === 'Customer'">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.roles[0].name }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="glass-card p-4">
+      <div class="mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+         <h2 class="h4 fw-bold mb-0 text-uppercase tracking-wider text-white">Customers</h2>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="table table-borderless align-middle text-white bg-transparent">
+          <thead class="text-secondary small text-uppercase tracking-wider border-bottom border-secondary border-opacity-10">
+            <tr>
+              <th class="ps-0">ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in customers" :key="user.id" class="border-bottom border-secondary border-opacity-10">
+              <td class="ps-0 py-3 text-secondary">#{{ user.id }}</td>
+              <td><span class="fw-bold">{{ user.name }}</span></td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+            <tr v-if="customers.length === 0">
+              <td colspan="4" class="text-center py-4 text-secondary">No customers found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,6 +84,15 @@
         token: localStorage.getItem('token'),
         role: localStorage.getItem('role'),
         users: []
+      }
+    },
+
+    computed: {
+      storeManagers() {
+        return this.users.filter(u => u.roles && u.roles[0] && u.roles[0].name === 'Storemanager');
+      },
+      customers() {
+        return this.users.filter(u => u.roles && u.roles[0] && u.roles[0].name === 'Customer');
       }
     },
 

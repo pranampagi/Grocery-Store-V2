@@ -159,6 +159,30 @@ def activate_category(id):
     return jsonify({"message": "Category Activated"}), 200
 
 
+@app.route('/reject/category/<int:id>', methods=['PUT'])
+@auth_required("token")
+@roles_required('Admin')
+def reject_category(id):
+    category = Category.query.filter_by(id=id).first()
+    if not category:
+        return jsonify({"message": "Category Not Found"}), 404
+    category.delete = False
+    db.session.commit()
+    return jsonify({"message": "Category Deletion Rejected"}), 200
+
+
+@app.route('/reject/product/<int:id>', methods=['PUT'])
+@auth_required("token")
+@roles_required('Admin')
+def reject_product(id):
+    product = Product.query.filter_by(id=id).first()
+    if not product:
+        return jsonify({"message": "Product Not Found"}), 404
+    product.delete = False
+    db.session.commit()
+    return jsonify({"message": "Product Deletion Rejected"}), 200
+
+
 
 # @app.route('/delete/product/<int:id>', methods=['DELETE'])
 # @auth_required("token")
@@ -229,9 +253,12 @@ def download_csv():
 
 @app.route('/get-csv/<task_id>')
 def get_csv(task_id):
-    res = AsyncResult(task_id)
+    res = create_product_csv.AsyncResult(task_id)
     if res.ready():
-        filename = res.result
-        return send_file(f"static/{filename}", as_attachment=True)
+        if res.successful():
+            filename = res.result
+            return send_file(f"static/{filename}", as_attachment=True)
+        else:
+            return jsonify({"message": "Task Failed"}), 500
     else:
         return jsonify({"message": "Task Pending"}), 400

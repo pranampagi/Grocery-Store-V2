@@ -3,12 +3,12 @@
   --primary-dark: #27ae60;
   --secondary: #3498db;
   --accent: #e67e22;
-  --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
-  --glass-bg: rgba(255, 255, 255, 0.05);
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
   --card-radius: 20px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -18,8 +18,66 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: var(--bg-gradient);
   background-attachment: fixed;
-  color: var(--text-primary);
+  color: var(--text-primary) !important;
   min-height: 100vh;
+}
+
+/* Force high contrast for all text elements unless inside a light component */
+h1, h2, h3, h4, h5, h6, 
+.h1, .h2, .h3, .h4, .h5, .h6,
+p, label, li, dt, dd {
+  color: var(--text-primary) !important;
+}
+
+/* Safe Zone: Prevent white-on-white in light components */
+.alert, .alert *, 
+.modal-content, .modal-content *,
+.dropdown-menu, .dropdown-menu *,
+.popover, .popover * {
+  color: initial !important;
+}
+
+/* Fix specific alerts to use their intended dark colors */
+.alert-success, .alert-success * { color: #0f5132 !important; }
+.alert-danger, .alert-danger * { color: #842029 !important; }
+.alert-warning, .alert-warning * { color: #664d03 !important; }
+.alert-info, .alert-info * { color: #055160 !important; }
+
+/* Tables in Dark Mode */
+table:not(.table-light), 
+table:not(.table-light) thead, 
+table:not(.table-light) tbody, 
+table:not(.table-light) tr, 
+table:not(.table-light) th, 
+table:not(.table-light) td {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+  border-color: var(--glass-border) !important;
+}
+
+/* Ensure outline buttons are readable */
+.btn-outline-danger { color: #ff4757 !important; }
+.btn-outline-danger:hover { color: white !important; }
+.btn-outline-info { color: #00d2d3 !important; }
+.btn-outline-info:hover { color: white !important; }
+.btn-outline-success { color: #2ecc71 !important; }
+.btn-outline-success:hover { color: white !important; }
+.btn-outline-warning { color: #f1c40f !important; }
+.btn-outline-warning:hover { color: white !important; }
+
+/* Global fix for any remaining light-background Bootstrap components */
+.card, .list-group-item {
+  background-color: var(--glass-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--glass-border) !important;
+}
+
+span:not(.badge):not(.category-badge):not(.navbar-toggler-icon):not(.alert *) {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
 }
 
 .glass-card {
@@ -56,6 +114,17 @@ body {
 
 .btn-primary-premium:hover {
   box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+  transform: scale(1.02);
+}
+
+.btn-secondary-premium {
+  background: linear-gradient(45deg, var(--secondary), #2980b9);
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary-premium:hover {
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
   transform: scale(1.02);
 }
 
@@ -100,6 +169,10 @@ body {
   border-radius: 12px !important;
   color: white !important;
   padding: 12px 16px !important;
+}
+
+.form-control-premium::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .form-control-premium:focus {

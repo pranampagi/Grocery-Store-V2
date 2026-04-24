@@ -3,18 +3,30 @@ from .mail_service import send_message
 from .models import User, Role, Order, Product
 from jinja2 import Template
 from datetime import datetime, timedelta
-import flask_excel as excel
+
+import pyexcel as pe
 
 @shared_task(ignore_result=False)
 def create_product_csv():
-    prod_resource = Product.query.with_entities(Product.name, Product.price, Product.quantity, Product.sold_quantity, Product.manufacture_date).all()
-
-    csv_output = excel.make_response_from_query_sets(prod_resource, ["name", "price", "quantity", "sold_quantity", "manufacture_date"], "csv")
+    products = Product.query.all()
+    
+    # Create a list of dictionaries for pyexcel
+    data = []
+    for product in products:
+        data.append({
+            "Name": product.name,
+            "Price": product.price,
+            "Quantity": product.quantity,
+            "Sold Quantity": product.sold_quantity,
+            "Manufacture Date": product.manufacture_date
+        })
+    
     filename = "products.csv"
-
-    with open(f"static/{filename}", 'wb') as f:
-        f.write(csv_output.data)
-
+    filepath = f"static/{filename}"
+    
+    # Save using pyexcel
+    pe.save_as(records=data, dest_file_name=filepath)
+    
     return filename
     
 
