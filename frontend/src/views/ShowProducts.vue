@@ -48,7 +48,12 @@
                   {{ product.quantity }}
                 </span>
               </td>
-              <td>{{ formatDate(product.manufacture_date) }}</td>
+              <td>
+                <div v-if="product.delete" class="mb-1">
+                  <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger px-3 smaller">Deletion Requested</span>
+                </div>
+                {{ formatDate(product.manufacture_date) }}
+              </td>
               <td class="text-end pe-0">
                 <div class="d-flex justify-content-end gap-2">
                   <router-link v-if="role === 'Storemanager'" :to="{ name: 'editproduct', params: { id: product.id } }" class="btn btn-sm btn-outline-light border-secondary border-opacity-50">

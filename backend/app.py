@@ -53,41 +53,6 @@ def send_report(sender, **kwargs):
     )
 
 
-@celery_app.task(ignore_result=False)
-def create_product_csv():
-    prod_resource = Product.query.with_entities( Product.name, Product.price, Product.quantity, Product.sold_quantity, Product.manufacture_date).all()
-
-    csv_output = excel.make_response_from_query_sets(prod_resource, ["name", "price", "quantity", "sold_quantity", "manufacture_date"], "csv")
-    filename = "products.csv"
-
-    with open(f"static/{filename}", 'wb') as f:
-        f.write(csv_output.data)
-
-    return filename
-
-
-@app.route('/download-csv')
-@auth_required("token")
-@roles_accepted('Storemanager')
-def download_csv():
-    try:
-        # time.sleep(5)
-        task = create_product_csv.apply_async()
-        return jsonify({"task_id": task.id}), 200
-    except:
-        return jsonify({"message": "Something went wrong"}), 400
-
-
-@app.route('/get-csv/<task_id>')
-def get_csv(task_id):
-    res = AsyncResult(task_id, backend=celery_app.backend)
-    if res.ready():
-        filename = res.result
-        return send_file(f"static/{filename}", as_attachment=True)
-    else:
-        return jsonify({"message": "Task Pending"}), 400
-
-
 
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)

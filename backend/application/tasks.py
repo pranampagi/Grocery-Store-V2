@@ -1,22 +1,21 @@
 from celery import shared_task
 from .mail_service import send_message
-from .models import User, Role, Order
+from .models import User, Role, Order, Product
 from jinja2 import Template
 from datetime import datetime, timedelta
+import flask_excel as excel
 
+@shared_task(ignore_result=False)
+def create_product_csv():
+    prod_resource = Product.query.with_entities(Product.name, Product.price, Product.quantity, Product.sold_quantity, Product.manufacture_date).all()
 
+    csv_output = excel.make_response_from_query_sets(prod_resource, ["name", "price", "quantity", "sold_quantity", "manufacture_date"], "csv")
+    filename = "products.csv"
 
-# @shared_task(ignore_result=False)
-# def create_product_csv():
-#     prod_resource = Product.query.with_entities( Product.name, Product.price, Product.quantity, Product.sold_quantity, Product.manufacture_date).all()
+    with open(f"static/{filename}", 'wb') as f:
+        f.write(csv_output.data)
 
-#     csv_output = excel.make_response_from_query_sets(prod_resource, ["name", "price", "quantity", "sold_quantity", "manufacture_date"], "csv")
-#     filename = "products.csv"
-
-#     with open(filename, 'wb') as f:
-#         f.write(csv_output.data)
-
-#     return filename
+    return filename
     
 
 

@@ -5,11 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_security import auth_required, roles_required, current_user, roles_accepted
 from datetime import datetime
 import json
-# from application.tasks import create_product_csv
-# from celery.result import AsyncResult
-# from celery import shared_task
-# import flask_excel as excel
-# import time
+from application.tasks import create_product_csv
+from celery.result import AsyncResult
+from flask import send_file
 
 
 
@@ -74,6 +72,7 @@ def login():
         return jsonify({"message": "User not activated"}), 400
 
     if check_password_hash(user.password, password):
+        user.last_login_at = datetime.now()
         db.session.commit()
         return jsonify({"token": user.get_auth_token(), "email": user.email, "role": user.roles[0].name}), 200
     else:
@@ -217,20 +216,22 @@ def update_quantity():
 # STORE MANAGER ROUTES
 
 
-# @app.route('/download-csv')
-# def download_csv():
-#     try:
-#         task = create_product_csv.delay()
-#         return jsonify({"task_id": task.id}), 200
-#     except:
-#         return jsonify({"message": "Something went wrong"}), 400
+@app.route('/download-csv')
+@auth_required("token")
+@roles_accepted('Storemanager')
+def download_csv():
+    try:
+        task = create_product_csv.delay()
+        return jsonify({"task_id": task.id}), 200
+    except:
+        return jsonify({"message": "Something went wrong"}), 400
 
 
-# @app.route('/get-csv/<task_id>')
-# def get_csv(task_id):
-#     res = AsyncResult(task_id)
-#     if res.ready():
-#         filename = res.result
-#         return send_file(filename, as_attachment=True)
-#     else:
-#         return jsonify({"message": "Task Pending"}), 400
+@app.route('/get-csv/<task_id>')
+def get_csv(task_id):
+    res = AsyncResult(task_id)
+    if res.ready():
+        filename = res.result
+        return send_file(f"static/{filename}", as_attachment=True)
+    else:
+        return jsonify({"message": "Task Pending"}), 400

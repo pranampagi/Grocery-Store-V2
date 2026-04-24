@@ -38,6 +38,9 @@
               <td><span class="text-secondary small d-inline-block text-truncate" style="max-width: 200px;">{{ category.description }}</span></td>
               <td>{{ category.creator }}</td>
               <td class="text-center">
+                <div v-if="category.delete" class="mb-2">
+                  <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger px-3 smaller">Deletion Requested</span>
+                </div>
                 <span v-if="category.active" class="badge rounded-pill bg-success bg-opacity-25 text-success px-3">Active</span>
                 <span v-else-if="role === 'Storemanager'" class="badge rounded-pill bg-warning bg-opacity-25 text-warning px-3">Pending</span>
                 <button v-else-if="role === 'Admin'" class="btn btn-sm btn-success rounded-pill px-3" @click="activateCategory(category.id)">Activate</button>
