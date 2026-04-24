@@ -1,1 +1,11 @@
-[2026-04-24 10:53:04,263: INFO/MainProcess] beat: Starting...
+[2026-04-24 11:33:37,833: INFO/MainProcess] beat: Starting...
+celery beat v5.3.6 (emerald-rush) is starting.
+__    -    ... __   -        _
+LocalTime -> 2026-04-24 11:33:37
+Configuration ->
+    . broker -> redis://localhost:6379/1
+    . loader -> celery.loaders.app.AppLoader
+    . scheduler -> celery.beat.PersistentScheduler
+    . db -> celerybeat-schedule
+    . logfile -> [stderr]@%INFO
+    . maxinterval -> 5.00 minutes (300s)

@@ -244,11 +244,8 @@ def update_quantity():
 @auth_required("token")
 @roles_accepted('Storemanager')
 def download_csv():
-    try:
-        task = create_product_csv.delay()
-        return jsonify({"task_id": task.id}), 200
-    except:
-        return jsonify({"message": "Something went wrong"}), 400
+    task = create_product_csv.delay()
+    return jsonify({"task_id": task.id}), 200
 
 
 @app.route('/get-csv/<task_id>')

@@ -7,6 +7,11 @@ def celery_init_app(app):
                 return self.run(*args, **kwargs)
 
     celery_app = Celery(app.name, task_cls=FlaskTask)
-    celery_app.config_from_object("celery_config")
+    celery_app.conf.update(
+        broker_url="redis://localhost:6379/1",
+        result_backend="redis://localhost:6379/2",
+        timezone="Asia/Kolkata",
+        broker_connection_retry_on_startup=True
+    )
     celery_app.conf.update(app.config)
     return celery_app
