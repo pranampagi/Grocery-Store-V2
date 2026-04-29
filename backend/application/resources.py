@@ -478,19 +478,27 @@ class SearchApi(Resource):
     def get(self, query):
         if not query:
             return {"message": "Query cannot be empty"}, 400
-        # If query is an integer or float, search for product price <= query
-        if query.isdigit():
-            products = Product.query.filter(Product.price <= query).all()
-        # If query is a date, search for product manufacture_date >= query
-        elif query.count('-') == 2:
-            products = Product.query.filter(Product.manufacture_date >= query).all()
-        # Otherwise, search for product name or category name containing query all in lowercase
-        else:
-            products = Product.query.options(joinedload(Product.category)).filter(or_(Product.name.like(f'%{query}%'), Product.category.has(name=query))).all()
-            
-        # filter products with category as active
-        products = [product for product in products if product.category.active]
-        return marshal(products, product_fields), 200
+        try:
+            # If query is an integer or float, search for product price <= query
+            if query.isdigit():
+                products = Product.query.options(joinedload(Product.category)).filter(Product.price <= float(query)).all()
+            # If query is a date, search for product manufacture_date >= query
+            elif query.count('-') == 2:
+                products = Product.query.options(joinedload(Product.category)).filter(Product.manufacture_date >= query).all()
+            # Otherwise, search for product name or category name containing query (case-insensitive)
+            else:
+                products = Product.query.options(joinedload(Product.category)).filter(
+                    or_(
+                        Product.name.ilike(f'%{query}%'),
+                        Product.category.has(Category.name.ilike(f'%{query}%'))
+                    )
+                ).all()
+                
+            # filter products with category that is active (with null safety)
+            products = [product for product in products if product.category and product.category.active]
+            return marshal(products, product_fields), 200
+        except Exception as e:
+            return {"message": f"Search error: {str(e)}"}, 500
 
 
 

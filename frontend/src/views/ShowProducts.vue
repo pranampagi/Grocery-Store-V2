@@ -180,36 +180,62 @@ import router from '@/router'
 
         async downloadProducts() {
           this.isWaiting = true;
-          const response = await fetch('http://localhost:5000/download-csv', {
-            method: 'GET',
-            headers: {
-                'Authentication-Token': localStorage.getItem('token')
+          this.error = '';
+          try {
+            const response = await fetch('http://localhost:5000/download-csv', {
+              method: 'GET',
+              headers: {
+                  'Authentication-Token': localStorage.getItem('token')
+              }
+            });
+            if (!response.ok) {
+              const errData = await response.json().catch(() => ({}));
+              this.error = errData.message || 'Failed to start CSV export';
+              this.isWaiting = false;
+              return;
             }
-          })
-          .catch(error => console.log(error));
-          const data = await response.json();
-          if (response.ok) {
+            const data = await response.json();
             const taskId = data.task_id;
+            let attempts = 0;
             const intv = setInterval(async () => {
-              const csv_response = await fetch(`http://localhost:5000/get-csv/${taskId}`, {
-                method: 'GET',
-                headers: {
-                    'Authentication-Token': localStorage.getItem('token')
-                }
-              })
-              .catch(error => console.log(error));
-              if (csv_response.ok) {
-                this.isWaiting = false;
+              attempts++;
+              if (attempts > 30) {
                 clearInterval(intv);
-                window.location.href = `http://localhost:5000/get-csv/${taskId}`;
+                this.isWaiting = false;
+                this.error = 'CSV export timed out. Please try again.';
+                return;
+              }
+              try {
+                const csv_response = await fetch(`http://localhost:5000/get-csv/${taskId}`, {
+                  method: 'GET',
+                  headers: {
+                      'Authentication-Token': localStorage.getItem('token')
+                  }
+                });
+                if (csv_response.ok) {
+                  clearInterval(intv);
+                  const blob = await csv_response.blob();
+                  const url = window.URL.createObjectURL(blob);
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.download = 'products.csv';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  window.URL.revokeObjectURL(url);
+                  this.isWaiting = false;
+                }
+              } catch (pollErr) {
+                console.error('CSV poll error:', pollErr);
               }
             }, 1000);
-          }
-          else {
-              this.error = data.message;
-              this.isWaiting = false;
+          } catch (err) {
+            console.error('CSV export error:', err);
+            this.error = 'Failed to connect to the server for CSV export.';
+            this.isWaiting = false;
           }
         }
+
     },
     async mounted() {
         this.getProducts();

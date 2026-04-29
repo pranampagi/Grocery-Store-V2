@@ -244,8 +244,12 @@ def update_quantity():
 @auth_required("token")
 @roles_accepted('Storemanager')
 def download_csv():
-    task = create_product_csv.delay()
-    return jsonify({"task_id": task.id}), 200
+    try:
+        task = create_product_csv.delay()
+        return jsonify({"task_id": task.id}), 200
+    except Exception as e:
+        app.logger.error(f"CSV export failed: {e}")
+        return jsonify({"message": f"Export failed: {str(e)}"}), 500
 
 
 @app.route('/get-csv/<task_id>')

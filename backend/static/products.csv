@@ -1,7 +1,6 @@
-name,price,quantity,sold_quantity,manufacture_date
-Table,999.99,0,4,2023-10-05
-Apple,15.0,13,7,2023-12-29
-Mithai Box,100.0,31,4,2023-11-10
-Mango,30.0,42,3,2023-12-23
-Chair,200.0,47,3,2023-08-11
-Stool,150.0,68,2,2023-11-09
+Manufacture Date,Name,Price,Quantity,Sold Quantity
+2023-10-05,Table,999.99,7,4
+2023-11-10,Mithai Box,100.0,31,4
+2023-12-23,Mango,30.0,42,3
+2023-08-11,Chair,200.0,47,3
+2023-11-09,Stool,150.0,68,2

@@ -8,7 +8,6 @@ from application.models import db, Product
 import flask_excel as excel
 from flask_cors import CORS
 from application.workers import celery_init_app
-from application.tasks import daily_reminder, monthly_report
 from celery.result import AsyncResult
 from flask import jsonify, send_file
 from flask_security import auth_required, roles_accepted
@@ -32,6 +31,9 @@ def create_app():
 
 app = create_app()
 celery_app = celery_init_app(app)
+
+# Import tasks AFTER celery_app is created so @shared_task binds to this app
+from application.tasks import daily_reminder, monthly_report
 
 
 @celery_app.on_after_configure.connect

@@ -18,7 +18,7 @@ def create_product_csv():
             "Price": product.price,
             "Quantity": product.quantity,
             "Sold Quantity": product.sold_quantity,
-            "Manufacture Date": product.manufacture_date
+            "Manufacture Date": str(product.manufacture_date) if product.manufacture_date else ""
         })
     
     filename = "products.csv"
