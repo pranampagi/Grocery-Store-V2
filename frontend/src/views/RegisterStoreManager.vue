@@ -36,6 +36,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'RegisterStoreManager',
 
@@ -54,7 +55,7 @@
 
     methods: {
       async register() {
-        const response = await fetch('http://localhost:5000/manager-register', {
+        const response = await fetch(`${API_BASE}/manager-register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

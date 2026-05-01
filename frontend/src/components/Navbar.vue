@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import API_BASE from '@/api';
 export default {
   name: 'Navbar',
   data() {
@@ -74,7 +75,7 @@ export default {
   methods: {
     async logout() {
       try {
-        const response = await fetch('http://localhost:5000/user-logout', {
+        const response = await fetch(`${API_BASE}/user-logout`, {
           method: 'GET',
           headers: {
             'Authentication-Token': this.token

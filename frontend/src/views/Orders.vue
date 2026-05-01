@@ -65,6 +65,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'Orders',
 
@@ -89,7 +90,7 @@
         });
       },
       async getOrders() {
-        const response = await fetch('http://localhost:5000/api/order', {
+        const response = await fetch(`${API_BASE}/api/order`, {
           method: 'GET',
           headers: {
             'Authentication-Token': localStorage.getItem('token')

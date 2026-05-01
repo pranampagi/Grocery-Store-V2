@@ -99,6 +99,7 @@
 
 
 <script>
+import API_BASE from '@/api';
 import router from '@/router'
 
   export default {
@@ -114,7 +115,7 @@ import router from '@/router'
     },
     methods: {
         async getProducts() {
-            const response = await fetch('http://localhost:5000/api/products', {
+            const response = await fetch(`${API_BASE}/api/products`, {
                 method: 'GET',
                 headers: {
                     'Authentication-Token': localStorage.getItem('token')
@@ -138,7 +139,7 @@ import router from '@/router'
           });
         },
         async deleteProduct(id) {
-            const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+            const response = await fetch(`${API_BASE}/api/product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authentication-Token': localStorage.getItem('token')
@@ -160,7 +161,7 @@ import router from '@/router'
             }
         },
         async rejectProduct(id) {
-            const response = await fetch(`http://localhost:5000/reject/product/${id}`, {
+            const response = await fetch(`${API_BASE}/reject/product/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Authentication-Token': localStorage.getItem('token')
@@ -182,7 +183,7 @@ import router from '@/router'
           this.isWaiting = true;
           this.error = '';
           try {
-            const response = await fetch('http://localhost:5000/download-csv', {
+            const response = await fetch(`${API_BASE}/download-csv`, {
               method: 'GET',
               headers: {
                   'Authentication-Token': localStorage.getItem('token')
@@ -194,6 +195,18 @@ import router from '@/router'
               this.isWaiting = false;
               return;
             }
+
+            const contentType = response.headers.get('Content-Type') || '';
+
+            // If the backend returned a file directly (sync fallback), download it
+            if (!contentType.includes('application/json')) {
+              const blob = await response.blob();
+              this._triggerDownload(blob);
+              this.isWaiting = false;
+              return;
+            }
+
+            // Async path: Celery task was queued
             const data = await response.json();
             const taskId = data.task_id;
             let attempts = 0;
@@ -206,24 +219,20 @@ import router from '@/router'
                 return;
               }
               try {
-                const csv_response = await fetch(`http://localhost:5000/get-csv/${taskId}`, {
+                const csv_response = await fetch(`${API_BASE}/get-csv/${taskId}`, {
                   method: 'GET',
                   headers: {
                       'Authentication-Token': localStorage.getItem('token')
                   }
                 });
                 if (csv_response.ok) {
-                  clearInterval(intv);
-                  const blob = await csv_response.blob();
-                  const url = window.URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.download = 'products.csv';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  window.URL.revokeObjectURL(url);
-                  this.isWaiting = false;
+                  const ct = csv_response.headers.get('Content-Type') || '';
+                  if (!ct.includes('application/json')) {
+                    clearInterval(intv);
+                    const blob = await csv_response.blob();
+                    this._triggerDownload(blob);
+                    this.isWaiting = false;
+                  }
                 }
               } catch (pollErr) {
                 console.error('CSV poll error:', pollErr);
@@ -234,7 +243,19 @@ import router from '@/router'
             this.error = 'Failed to connect to the server for CSV export.';
             this.isWaiting = false;
           }
+        },
+
+        _triggerDownload(blob) {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'products.csv';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
         }
+
 
     },
     async mounted() {

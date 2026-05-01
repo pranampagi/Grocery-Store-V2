@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'Cart',
 
@@ -103,7 +104,7 @@
 
     methods: {
       async getCart() {
-        const response = await fetch('http://localhost:5000/api/cart', {
+        const response = await fetch(`${API_BASE}/api/cart`, {
           method: 'GET',
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -136,7 +137,7 @@
         // Set quantity to 1 if it is less than 1
         if (quantity < 1) quantity = 1
 
-        const response = await fetch(`http://localhost:5000/api/cart-item/${cart_item_id}`, {
+        const response = await fetch(`${API_BASE}/api/cart-item/${cart_item_id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -159,7 +160,7 @@
       },
 
       async deleteCartItem(cart_item_id) {
-        const response = await fetch(`http://localhost:5000/api/cart-item/${cart_item_id}`, {
+        const response = await fetch(`${API_BASE}/api/cart-item/${cart_item_id}`, {
           method: 'DELETE',
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -179,7 +180,7 @@
 
 
       async checkout() {
-        const response = await fetch('http://localhost:5000/api/order', {
+        const response = await fetch(`${API_BASE}/api/order`, {
           method: 'POST',
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -200,7 +201,7 @@
 
 
       async updateQuantity() {
-        const response = await fetch('http://localhost:5000/quantity', {
+        const response = await fetch(`${API_BASE}/quantity`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

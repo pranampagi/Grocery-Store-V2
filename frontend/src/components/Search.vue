@@ -55,6 +55,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'Search',
 
@@ -69,7 +70,7 @@
 
     methods: {
       async searchProduct() {
-        const response = await fetch(`http://localhost:5000/api/search/${this.query}`, {
+        const response = await fetch(`${API_BASE}/api/search/${this.query}`, {
           method: 'GET',
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -92,7 +93,7 @@
           this.$router.push({ name: 'login' });
           return;
         }
-        const response = await fetch('http://localhost:5000/api/cart-item', {
+        const response = await fetch(`${API_BASE}/api/cart-item`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

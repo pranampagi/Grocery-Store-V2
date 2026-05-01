@@ -28,6 +28,32 @@ def create_product_csv():
     pe.save_as(records=data, dest_file_name=filepath)
     
     return filename
+
+
+def create_product_csv_sync():
+    """Synchronous fallback for CSV export when Celery/Redis is unavailable."""
+    import os
+    products = Product.query.all()
+    
+    data = []
+    for product in products:
+        data.append({
+            "Name": product.name,
+            "Price": product.price,
+            "Quantity": product.quantity,
+            "Sold Quantity": product.sold_quantity,
+            "Manufacture Date": str(product.manufacture_date) if product.manufacture_date else ""
+        })
+    
+    filename = "products.csv"
+    filepath = f"static/{filename}"
+    
+    # Ensure static directory exists
+    os.makedirs("static", exist_ok=True)
+    pe.save_as(records=data, dest_file_name=filepath)
+    
+    return filename
+
     
 
 

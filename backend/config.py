@@ -1,3 +1,6 @@
+import os
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -18,3 +21,19 @@ class DevelopmentConfig(Config):
     # Celery configuration (must be in Flask config so conf.update preserves them)
     CELERY_BROKER_URL = "redis://localhost:6379/1"
     CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "sqlite:///database.db")
+    SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
+    SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT", "change-me-in-production")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    WTF_CSRF_ENABLED = False
+    SECURITY_TOKEN_AUTHENTICATION_HEADER = "Authentication-Token"
+    # Cache — use Redis if REDIS_URL is set, else simple in-memory cache
+    CACHE_TYPE = os.environ.get("CACHE_TYPE", "SimpleCache")
+    CACHE_REDIS_URL = os.environ.get("REDIS_URL", None)
+    # Celery — use Redis if REDIS_URL is set
+    CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", os.environ.get("REDIS_URL", "redis://localhost:6379/1"))
+    CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", os.environ.get("REDIS_URL", "redis://localhost:6379/2"))

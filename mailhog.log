@@ -1,7 +1,579 @@
-2026/04/24 11:33:37 Using in-memory storage
+2026/04/30 13:59:35 Using in-memory storage
+2026/04/30 13:59:35 [SMTP] Binding to address: 0.0.0.0:1025
 [HTTP] Binding to address: 0.0.0.0:8025
-2026/04/24 11:33:37 Serving under http://0.0.0.0:8025/
-2026/04/24 11:33:37 [SMTP] Binding to address: 0.0.0.0:1025
+2026/04/30 13:59:35 Serving under http://0.0.0.0:8025/
 Creating API v1 with WebPath: 
 Creating API v2 with WebPath: 
+2026/04/30 13:59:38 [SMTP [::1]:42004] Starting session
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: INVALID] Started session, switching to ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 35 bytes: '220 mailhog.example ESMTP MailHog\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 18 bytes: 'ehlo [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: ESTABLISH] Processing line: ehlo [127.0.1.1]
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: ESTABLISH] In state 1, got command 'EHLO', args '[127.0.1.1]'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: ESTABLISH] In ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: ESTABLISH] Got EHLO command, switching to MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 23 bytes: '250-Hello [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 16 bytes: '250-PIPELINING\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 16 bytes: '250 AUTH PLAIN\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 37 bytes: 'mail from:<administrator@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] Processing line: mail from:<administrator@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] In state 6, got command 'MAIL', args 'from:<administrator@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] In MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] Got MAIL command, switching to RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 39 bytes: '250 Sender administrator@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 30 bytes: 'rcpt to:<customer@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] Processing line: rcpt to:<customer@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] In state 7, got command 'RCPT', args 'to:<customer@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] Got RCPT command
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 37 bytes: '250 Recipient customer@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 6 bytes: 'data\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] Processing line: data
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] In state 7, got command 'DATA', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: RCPT] Got DATA command, switching to DATA state
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 37 bytes: '354 End data with <CR><LF>.<CR><LF>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 746 bytes: 'Content-Type: multipart/mixed; boundary="===============2464671838306170442=="\r\nMIME-Version: 1.0\r\nTo: customer@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============2464671838306170442==\r\nContent-Type: text/html; charset="us-ascii"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n<!DOCTYPE html>\r\n<html lang="en">\r\n<head>\r\n  <meta charset="UTF-8">\r\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n  <title>Reminder</title>\r\n</head>\r\n<body>\r\n  <p>Hello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>\r\n</body>\r\n</html>\r\n--===============2464671838306170442==--\r\n.\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: DATA] Got EOF, storing message and switching to MAIL state
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: multipart/mixed; boundary="===============2464671838306170442=="
+MIME-Version: 1.0
+To: customer@email.com
+Subject: Daily Reminder
+From: administrator@email.com
+
+--===============2464671838306170442==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>
+--===============2464671838306170442==--'
+2026/04/30 13:59:38 Parsing MIME body
+2026/04/30 13:59:38 Got boundary: ===============2464671838306170442==
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>'
+2026/04/30 13:59:38 Parsing Content from string: '--'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Storing message lvfDdh2NxymBKEuWQcwo1muwzZsupDEGPf7ZFUgVDP0=@mailhog.example
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 80 bytes: '250 Ok: queued as lvfDdh2NxymBKEuWQcwo1muwzZsupDEGPf7ZFUgVDP0=@mailhog.example\r\n'
+Got message in APIv2 websocket channel
+[APIv2] BROADCAST /api/v2/websocket
+2026/04/30 13:59:38 [SMTP [::1]:42004] Received 6 bytes: 'quit\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] Processing line: quit
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] In state 6, got command 'QUIT', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42004] [PROTO: MAIL] Got QUIT verb, staying in MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42004] Sent 9 bytes: '221 Bye\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42004] Session ended
+Got message in APIv1 event stream
+Sending content: {
+  "ID": "lvfDdh2NxymBKEuWQcwo1muwzZsupDEGPf7ZFUgVDP0=@mailhog.example",
+  "From": {
+    "Relays": null,
+    "Mailbox": "administrator",
+    "Domain": "email.com",
+    "Params": ""
+  },
+  "To": [
+    {
+      "Relays": null,
+      "Mailbox": "customer",
+      "Domain": "email.com",
+      "Params": ""
+    }
+  ],
+  "Content": {
+    "Headers": {
+      "Content-Type": [
+        "multipart/mixed; boundary=\"===============2464671838306170442==\""
+      ],
+      "From": [
+        "administrator@email.com"
+      ],
+      "MIME-Version": [
+        "1.0"
+      ],
+      "Message-ID": [
+        "lvfDdh2NxymBKEuWQcwo1muwzZsupDEGPf7ZFUgVDP0=@mailhog.example"
+      ],
+      "Received": [
+        "from [127.0.1.1] by mailhog.example (MailHog)\r\n          id lvfDdh2NxymBKEuWQcwo1muwzZsupDEGPf7ZFUgVDP0=@mailhog.example; Thu, 30 Apr 2026 13:59:38 +0530"
+      ],
+      "Return-Path": [
+        "\u003cadministrator@email.com\u003e"
+      ],
+      "Subject": [
+        "Daily Reminder"
+      ],
+      "To": [
+        "customer@email.com"
+      ]
+    },
+    "Body": "--===============2464671838306170442==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============2464671838306170442==--",
+    "Size": 741,
+    "MIME": null
+  },
+  "Created": "2026-04-30T13:59:38.146444539+05:30",
+  "MIME": {
+    "Parts": [
+      {
+        "Headers": {
+          "Content-Transfer-Encoding": [
+            "7bit"
+          ],
+          "Content-Type": [
+            "text/html; charset=\"us-ascii\""
+          ],
+          "MIME-Version": [
+            "1.0"
+          ]
+        },
+        "Body": "\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e",
+        "Size": 478,
+        "MIME": null
+      },
+      {
+        "Headers": {},
+        "Body": "--",
+        "Size": 2,
+        "MIME": null
+      }
+    ]
+  },
+  "Raw": {
+    "From": "administrator@email.com",
+    "To": [
+      "customer@email.com"
+    ],
+    "Data": "Content-Type: multipart/mixed; boundary=\"===============2464671838306170442==\"\r\nMIME-Version: 1.0\r\nTo: customer@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============2464671838306170442==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello customer, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============2464671838306170442==--",
+    "Helo": "[127.0.1.1]"
+  }
+}
+
+[APIv1] BROADCAST /api/v1/events
+2026/04/30 13:59:38 [SMTP [::1]:42018] Starting session
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: INVALID] Started session, switching to ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 35 bytes: '220 mailhog.example ESMTP MailHog\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 18 bytes: 'ehlo [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: ESTABLISH] Processing line: ehlo [127.0.1.1]
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: ESTABLISH] In state 1, got command 'EHLO', args '[127.0.1.1]'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: ESTABLISH] In ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: ESTABLISH] Got EHLO command, switching to MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 23 bytes: '250-Hello [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 16 bytes: '250-PIPELINING\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 16 bytes: '250 AUTH PLAIN\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 37 bytes: 'mail from:<administrator@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] Processing line: mail from:<administrator@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] In state 6, got command 'MAIL', args 'from:<administrator@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] In MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] Got MAIL command, switching to RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 39 bytes: '250 Sender administrator@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 27 bytes: 'rcpt to:<user1@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] Processing line: rcpt to:<user1@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] In state 7, got command 'RCPT', args 'to:<user1@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] Got RCPT command
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 34 bytes: '250 Recipient user1@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 6 bytes: 'data\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] Processing line: data
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] In state 7, got command 'DATA', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: RCPT] Got DATA command, switching to DATA state
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 37 bytes: '354 End data with <CR><LF>.<CR><LF>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 740 bytes: 'Content-Type: multipart/mixed; boundary="===============3276983183892050737=="\r\nMIME-Version: 1.0\r\nTo: user1@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============3276983183892050737==\r\nContent-Type: text/html; charset="us-ascii"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n<!DOCTYPE html>\r\n<html lang="en">\r\n<head>\r\n  <meta charset="UTF-8">\r\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n  <title>Reminder</title>\r\n</head>\r\n<body>\r\n  <p>Hello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>\r\n</body>\r\n</html>\r\n--===============3276983183892050737==--\r\n.\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: DATA] Got EOF, storing message and switching to MAIL state
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: multipart/mixed; boundary="===============3276983183892050737=="
+MIME-Version: 1.0
+To: user1@email.com
+Subject: Daily Reminder
+From: administrator@email.com
+
+--===============3276983183892050737==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>
+--===============3276983183892050737==--'
+2026/04/30 13:59:38 Parsing MIME body
+2026/04/30 13:59:38 Got boundary: ===============3276983183892050737==
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>'
+2026/04/30 13:59:38 Parsing Content from string: '--'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Storing message trTC5XmUZbVmxrD2ca9CMjKoi6c_LwySuTAM0wsXIR0=@mailhog.example
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 80 bytes: '250 Ok: queued as trTC5XmUZbVmxrD2ca9CMjKoi6c_LwySuTAM0wsXIR0=@mailhog.example\r\n'
+Got message in APIv2 websocket channel
+[APIv2] BROADCAST /api/v2/websocket
+Got message in APIv1 event stream
+2026/04/30 13:59:38 [SMTP [::1]:42018] Received 6 bytes: 'quit\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] Processing line: quit
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] In state 6, got command 'QUIT', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42018] [PROTO: MAIL] Got QUIT verb, staying in MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42018] Sent 9 bytes: '221 Bye\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42018] Session ended
+Sending content: {
+  "ID": "trTC5XmUZbVmxrD2ca9CMjKoi6c_LwySuTAM0wsXIR0=@mailhog.example",
+  "From": {
+    "Relays": null,
+    "Mailbox": "administrator",
+    "Domain": "email.com",
+    "Params": ""
+  },
+  "To": [
+    {
+      "Relays": null,
+      "Mailbox": "user1",
+      "Domain": "email.com",
+      "Params": ""
+    }
+  ],
+  "Content": {
+    "Headers": {
+      "Content-Type": [
+        "multipart/mixed; boundary=\"===============3276983183892050737==\""
+      ],
+      "From": [
+        "administrator@email.com"
+      ],
+      "MIME-Version": [
+        "1.0"
+      ],
+      "Message-ID": [
+        "trTC5XmUZbVmxrD2ca9CMjKoi6c_LwySuTAM0wsXIR0=@mailhog.example"
+      ],
+      "Received": [
+        "from [127.0.1.1] by mailhog.example (MailHog)\r\n          id trTC5XmUZbVmxrD2ca9CMjKoi6c_LwySuTAM0wsXIR0=@mailhog.example; Thu, 30 Apr 2026 13:59:38 +0530"
+      ],
+      "Return-Path": [
+        "\u003cadministrator@email.com\u003e"
+      ],
+      "Subject": [
+        "Daily Reminder"
+      ],
+      "To": [
+        "user1@email.com"
+      ]
+    },
+    "Body": "--===============3276983183892050737==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============3276983183892050737==--",
+    "Size": 735,
+    "MIME": null
+  },
+  "Created": "2026-04-30T13:59:38.149396268+05:30",
+  "MIME": {
+    "Parts": [
+      {
+        "Headers": {
+          "Content-Transfer-Encoding": [
+            "7bit"
+          ],
+          "Content-Type": [
+            "text/html; charset=\"us-ascii\""
+          ],
+          "MIME-Version": [
+            "1.0"
+          ]
+        },
+        "Body": "\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e",
+        "Size": 475,
+        "MIME": null
+      },
+      {
+        "Headers": {},
+        "Body": "--",
+        "Size": 2,
+        "MIME": null
+      }
+    ]
+  },
+  "Raw": {
+    "From": "administrator@email.com",
+    "To": [
+      "user1@email.com"
+    ],
+    "Data": "Content-Type: multipart/mixed; boundary=\"===============3276983183892050737==\"\r\nMIME-Version: 1.0\r\nTo: user1@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============3276983183892050737==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello User1, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============3276983183892050737==--",
+    "Helo": "[127.0.1.1]"
+  }
+}
+
+[APIv1] BROADCAST /api/v1/events
+2026/04/30 13:59:38 [SMTP [::1]:42024] Starting session
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: INVALID] Started session, switching to ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 35 bytes: '220 mailhog.example ESMTP MailHog\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 18 bytes: 'ehlo [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: ESTABLISH] Processing line: ehlo [127.0.1.1]
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: ESTABLISH] In state 1, got command 'EHLO', args '[127.0.1.1]'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: ESTABLISH] In ESTABLISH state
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: ESTABLISH] Got EHLO command, switching to MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 23 bytes: '250-Hello [127.0.1.1]\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 16 bytes: '250-PIPELINING\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 16 bytes: '250 AUTH PLAIN\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 37 bytes: 'mail from:<administrator@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] Processing line: mail from:<administrator@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] In state 6, got command 'MAIL', args 'from:<administrator@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] In MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] Got MAIL command, switching to RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 39 bytes: '250 Sender administrator@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 30 bytes: 'rcpt to:<yugghati@email.com>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] Processing line: rcpt to:<yugghati@email.com>
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] In state 7, got command 'RCPT', args 'to:<yugghati@email.com>'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] Got RCPT command
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 37 bytes: '250 Recipient yugghati@email.com ok\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 6 bytes: 'data\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] Processing line: data
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] In state 7, got command 'DATA', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] In RCPT state
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: RCPT] Got DATA command, switching to DATA state
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 37 bytes: '354 End data with <CR><LF>.<CR><LF>\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 746 bytes: 'Content-Type: multipart/mixed; boundary="===============6150298087969622324=="\r\nMIME-Version: 1.0\r\nTo: yugghati@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============6150298087969622324==\r\nContent-Type: text/html; charset="us-ascii"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n<!DOCTYPE html>\r\n<html lang="en">\r\n<head>\r\n  <meta charset="UTF-8">\r\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n  <title>Reminder</title>\r\n</head>\r\n<body>\r\n  <p>Hello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>\r\n</body>\r\n</html>\r\n--===============6150298087969622324==--\r\n.\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: DATA] Got EOF, storing message and switching to MAIL state
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: multipart/mixed; boundary="===============6150298087969622324=="
+MIME-Version: 1.0
+To: yugghati@email.com
+Subject: Daily Reminder
+From: administrator@email.com
+
+--===============6150298087969622324==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>
+--===============6150298087969622324==--'
+2026/04/30 13:59:38 Parsing MIME body
+2026/04/30 13:59:38 Got boundary: ===============6150298087969622324==
+2026/04/30 13:59:38 Parsing Content from string: 'Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder</title>
+</head>
+<body>
+  <p>Hello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!</p>
+</body>
+</html>'
+2026/04/30 13:59:38 Parsing Content from string: '--'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Storing message FL1Jwj3qc0JyXCLYhZ5BsiGzd13TUqcSajR4gr39S3U=@mailhog.example
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 80 bytes: '250 Ok: queued as FL1Jwj3qc0JyXCLYhZ5BsiGzd13TUqcSajR4gr39S3U=@mailhog.example\r\n'
+Got message in APIv2 websocket channel
+[APIv2] BROADCAST /api/v2/websocket
+2026/04/30 13:59:38 [SMTP [::1]:42024] Received 6 bytes: 'quit\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] Processing line: quit
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] In state 6, got command 'QUIT', args ''
+2026/04/30 13:59:38 [SMTP [::1]:42024] [PROTO: MAIL] Got QUIT verb, staying in MAIL state
+2026/04/30 13:59:38 [SMTP [::1]:42024] Sent 9 bytes: '221 Bye\r\n'
+2026/04/30 13:59:38 [SMTP [::1]:42024] Session ended
+Got message in APIv1 event stream
+Sending content: {
+  "ID": "FL1Jwj3qc0JyXCLYhZ5BsiGzd13TUqcSajR4gr39S3U=@mailhog.example",
+  "From": {
+    "Relays": null,
+    "Mailbox": "administrator",
+    "Domain": "email.com",
+    "Params": ""
+  },
+  "To": [
+    {
+      "Relays": null,
+      "Mailbox": "yugghati",
+      "Domain": "email.com",
+      "Params": ""
+    }
+  ],
+  "Content": {
+    "Headers": {
+      "Content-Type": [
+        "multipart/mixed; boundary=\"===============6150298087969622324==\""
+      ],
+      "From": [
+        "administrator@email.com"
+      ],
+      "MIME-Version": [
+        "1.0"
+      ],
+      "Message-ID": [
+        "FL1Jwj3qc0JyXCLYhZ5BsiGzd13TUqcSajR4gr39S3U=@mailhog.example"
+      ],
+      "Received": [
+        "from [127.0.1.1] by mailhog.example (MailHog)\r\n          id FL1Jwj3qc0JyXCLYhZ5BsiGzd13TUqcSajR4gr39S3U=@mailhog.example; Thu, 30 Apr 2026 13:59:38 +0530"
+      ],
+      "Return-Path": [
+        "\u003cadministrator@email.com\u003e"
+      ],
+      "Subject": [
+        "Daily Reminder"
+      ],
+      "To": [
+        "yugghati@email.com"
+      ]
+    },
+    "Body": "--===============6150298087969622324==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============6150298087969622324==--",
+    "Size": 741,
+    "MIME": null
+  },
+  "Created": "2026-04-30T13:59:38.15166971+05:30",
+  "MIME": {
+    "Parts": [
+      {
+        "Headers": {
+          "Content-Transfer-Encoding": [
+            "7bit"
+          ],
+          "Content-Type": [
+            "text/html; charset=\"us-ascii\""
+          ],
+          "MIME-Version": [
+            "1.0"
+          ]
+        },
+        "Body": "\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e",
+        "Size": 478,
+        "MIME": null
+      },
+      {
+        "Headers": {},
+        "Body": "--",
+        "Size": 2,
+        "MIME": null
+      }
+    ]
+  },
+  "Raw": {
+    "From": "administrator@email.com",
+    "To": [
+      "yugghati@email.com"
+    ],
+    "Data": "Content-Type: multipart/mixed; boundary=\"===============6150298087969622324==\"\r\nMIME-Version: 1.0\r\nTo: yugghati@email.com\r\nSubject: Daily Reminder\r\nFrom: administrator@email.com\r\n\r\n--===============6150298087969622324==\r\nContent-Type: text/html; charset=\"us-ascii\"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\n\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n\u003chead\u003e\r\n  \u003cmeta charset=\"UTF-8\"\u003e\r\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\r\n  \u003ctitle\u003eReminder\u003c/title\u003e\r\n\u003c/head\u003e\r\n\u003cbody\u003e\r\n  \u003cp\u003eHello Yug Pagi, Missed us? Don't forget to explore the latest offers and fresh arrivals at our grocery store website! Your next shopping adventure awaits. Visit now!\u003c/p\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n--===============6150298087969622324==--",
+    "Helo": "[127.0.1.1]"
+  }
+}
+
+[APIv1] BROADCAST /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
 [APIv1] KEEPALIVE /api/v1/events

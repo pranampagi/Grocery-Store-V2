@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'Users',
 
@@ -98,7 +99,7 @@
 
     methods: {
       async getUsers() {
-        fetch('http://localhost:5000/api/users', {
+        fetch(`${API_BASE}/api/users`, {
           method: "GET",
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -112,7 +113,7 @@
 
 
       async activateStoremanager(id) {
-        const response = await fetch(`http://localhost:5000/activate/storemanager/${id}`, {
+        const response = await fetch(`${API_BASE}/activate/storemanager/${id}`, {
           method: 'PUT',
           headers: {
             'Authentication-Token': localStorage.getItem('token')

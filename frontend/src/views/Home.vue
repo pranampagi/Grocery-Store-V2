@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import API_BASE from '@/api';
 export default {
   name: 'Home',
   data() {
@@ -76,7 +77,7 @@ export default {
     },
     async getCategories() {
       try {
-        const response = await fetch('http://localhost:5000/api/categories', {
+        const response = await fetch(`${API_BASE}/api/categories`, {
           headers: { 'Authentication-Token': localStorage.getItem('token') }
         })
         const data = await response.json()
@@ -96,7 +97,7 @@ export default {
         return;
       }
       try {
-        const response = await fetch('http://localhost:5000/api/cart-item', {
+        const response = await fetch(`${API_BASE}/api/cart-item`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

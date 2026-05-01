@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'ShowCategories',
 
@@ -98,7 +99,7 @@
 
     methods: {
       async getCategories(){
-        const response = await fetch('http://localhost:5000/api/categories', {
+        const response = await fetch(`${API_BASE}/api/categories`, {
           method: "GET",
           headers: {
             'Authentication-Token': this.token
@@ -113,7 +114,7 @@
       },
 
       async activateCategory(id) {
-        const response = await fetch(`http://localhost:5000/activate/category/${id}`, {
+        const response = await fetch(`${API_BASE}/activate/category/${id}`, {
           method: "PUT",
           headers: {
             'Authentication-Token': this.token
@@ -130,7 +131,7 @@
 
       
       async deleteCategory(id) {
-        const response = await fetch(`http://localhost:5000/api/category/${id}`, {
+        const response = await fetch(`${API_BASE}/api/category/${id}`, {
           method: "DELETE",
           headers: {
             'Authentication-Token': this.token
@@ -150,7 +151,7 @@
       },
 
       async rejectCategory(id) {
-        const response = await fetch(`http://localhost:5000/reject/category/${id}`, {
+        const response = await fetch(`${API_BASE}/reject/category/${id}`, {
           method: "PUT",
           headers: {
             'Authentication-Token': this.token

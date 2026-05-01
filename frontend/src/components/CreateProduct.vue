@@ -49,6 +49,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'CreateProduct',
 
@@ -69,7 +70,7 @@
 
     methods: {
       async createProduct() {
-        const response = await fetch('http://localhost:5000/api/products', {
+        const response = await fetch(`${API_BASE}/api/products`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -87,7 +88,7 @@
       },
 
       async getCategories() {
-        const response = await fetch('http://localhost:5000/api/categories', {
+        const response = await fetch(`${API_BASE}/api/categories`, {
           method: 'GET',
           headers: {
             'Authentication-Token': localStorage.getItem('token')

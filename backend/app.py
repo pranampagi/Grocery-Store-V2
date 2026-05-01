@@ -1,7 +1,8 @@
+import os
 from flask import Flask
 from flask_security import Security
 from celery.schedules import crontab
-from config import DevelopmentConfig
+from config import DevelopmentConfig, ProductionConfig
 from application.resources import api
 from application.data import datastore, cache
 from application.models import db, Product
@@ -16,8 +17,24 @@ import time
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(DevelopmentConfig)
-    CORS(app)
+
+    # Select config based on FLASK_ENV environment variable
+    env = os.environ.get("FLASK_ENV", "development")
+    if env == "production":
+        app.config.from_object(ProductionConfig)
+    else:
+        app.config.from_object(DevelopmentConfig)
+
+    # CORS — allow Vercel frontend and localhost
+    allowed_origins = [
+        "http://localhost:8080",
+        "http://localhost:8081",
+    ]
+    vercel_url = os.environ.get("FRONTEND_URL")
+    if vercel_url:
+        allowed_origins.append(vercel_url)
+    CORS(app, origins=allowed_origins, supports_credentials=True)
+
     db.init_app(app)
     api.init_app(app)
     excel.init_excel(app)

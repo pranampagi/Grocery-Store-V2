@@ -248,8 +248,15 @@ def download_csv():
         task = create_product_csv.delay()
         return jsonify({"task_id": task.id}), 200
     except Exception as e:
-        app.logger.error(f"CSV export failed: {e}")
-        return jsonify({"message": f"Export failed: {str(e)}"}), 500
+        # Celery/Redis unavailable — fall back to synchronous export
+        app.logger.warning(f"Celery unavailable, falling back to sync CSV: {e}")
+        try:
+            from application.tasks import create_product_csv_sync
+            filename = create_product_csv_sync()
+            return send_file(f"static/{filename}", as_attachment=True, download_name="products.csv")
+        except Exception as sync_err:
+            app.logger.error(f"Sync CSV export also failed: {sync_err}")
+            return jsonify({"message": f"Export failed: {str(sync_err)}"}), 500
 
 
 @app.route('/get-csv/<task_id>')
@@ -258,7 +265,7 @@ def get_csv(task_id):
     if res.ready():
         if res.successful():
             filename = res.result
-            return send_file(f"static/{filename}", as_attachment=True)
+            return send_file(f"static/{filename}", as_attachment=True, download_name="products.csv")
         else:
             return jsonify({"message": "Task Failed"}), 500
     else:

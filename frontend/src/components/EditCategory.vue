@@ -31,6 +31,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'EditCategory',
 
@@ -52,7 +53,7 @@
 
     methods: {
       async editCategory() {
-        const response = await fetch(`http://localhost:5000/api/category/${this.category.id}`, {
+        const response = await fetch(`${API_BASE}/api/category/${this.category.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -71,7 +72,7 @@
     },
 
     beforeRouteEnter(to, from, next) {
-      fetch(`http://localhost:5000/api/category/${to.params.id}`, {
+      fetch(`${API_BASE}/api/category/${to.params.id}`, {
         method: "GET",
         headers: {
           'Authentication-Token': localStorage.getItem('token')
@@ -87,7 +88,7 @@
     },
 
     beforeRouteUpdate(to, from, next) {
-      fetch(`http://localhost:5000/api/category/${to.params.id}`, {
+      fetch(`${API_BASE}/api/category/${to.params.id}`, {
         method: "GET",
         headers: {
           'Authentication-Token': localStorage.getItem('token')

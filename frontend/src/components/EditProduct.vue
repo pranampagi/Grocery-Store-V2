@@ -48,6 +48,7 @@
 
 
 <script>
+import API_BASE from '@/api';
   export default {
     name: 'EditProduct',
 
@@ -74,7 +75,7 @@
 
     methods: {
       async editProduct() {
-        const response = await fetch(`http://localhost:5000/api/product/${this.product.id}`, {
+        const response = await fetch(`${API_BASE}/api/product/${this.product.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -92,7 +93,7 @@
       },
 
       async getCategories() {
-        const response = await fetch('http://localhost:5000/api/categories', {
+        const response = await fetch(`${API_BASE}/api/categories`, {
           method: 'GET',
           headers: {
             'Authentication-Token': localStorage.getItem('token')
@@ -109,7 +110,7 @@
     },
 
     beforeRouteEnter(to, from, next) {
-      fetch(`http://localhost:5000/api/product/${to.params.id}`, {
+      fetch(`${API_BASE}/api/product/${to.params.id}`, {
         method: "GET",
         headers: {
           'Authentication-Token': localStorage.getItem('token')
@@ -125,7 +126,7 @@
     },
 
     beforeRouteUpdate(to, from, next) {
-      fetch(`http://localhost:5000/api/product/${to.params.id}`, {
+      fetch(`${API_BASE}/api/product/${to.params.id}`, {
         method: "GET",
         headers: {
           'Authentication-Token': localStorage.getItem('token')

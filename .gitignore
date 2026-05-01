@@ -48,6 +48,8 @@ celerybeat-schedule-wal
 # Generated / Runtime Files
 # =========================
 backend/static/products.csv
+frontend/dist/
+.env.production
 
 # =========================
 # IDE / OS
