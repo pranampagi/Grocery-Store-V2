@@ -57,7 +57,7 @@ Grocery-Store-V2/
 
 1. **Clone the repository**:
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/pranampagi/Grocery-Store-V2.git
    cd Grocery-Store-V2
    ```
 
